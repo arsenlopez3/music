@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استودیو ساخت کاور و ویژوالایزر موزیک</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
+        body { font-family: 'Vazirmatn', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-white min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-5xl w-full bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- پنل کنترل و تنظیمات (۵ ستون) -->
+        <div class="lg:col-span-5 flex flex-col gap-4">
+            <div class="border-b border-slate-800 pb-3">
+                <h1 class="text-2xl font-black bg-gradient-to-l from-pink-500 to-violet-500 bg-clip-text text-transparent">
+                    استودیو کاور موزیک 🎛️
+                </h1>
+                <p class="text-xs text-slate-400 mt-1">آهنگ و کاور را بدهید، قاب را انتخاب کنید و خروجی بگیرید.</p>
+            </div>
+            
+            <!-- اطلاعات متنی آهنگ -->
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">نام آهنگ:</label>
+                    <input type="text" id="songTitle" value="نام قطعه موسیقی" class="w-full bg-slate-800 border border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:border-pink-500">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">نام خواننده / سازنده:</label>
+                    <input type="text" id="artistName" value="نام هنرمند" class="w-full bg-slate-800 border border-slate-700 px-3 py-2 rounded-xl text-sm focus:outline-none focus:border-pink-500">
+                </div>
+            </div>
+
+            <!-- آپلود فایل‌ها -->
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">فایل صوتی (MP3/WAV):</label>
+                    <input type="file" id="audioFile" accept="audio/*" class="w-full text-xs bg-slate-800 p-2 rounded-xl file:bg-pink-600 file:text-white file:border-0 file:rounded-lg file:px-2 file:py-1 file:ml-2 cursor-pointer">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">تصویر کاور:</label>
+                    <input type="file" id="imageFile" accept="image/*" class="w-full text-xs bg-slate-800 p-2 rounded-xl file:bg-violet-600 file:text-white file:border-0 file:rounded-lg file:px-2 file:py-1 file:ml-2 cursor-pointer">
+                </div>
+            </div>
+
+            <!-- انتخاب قاب -->
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">انتخاب قاب گرافیکی:</label>
+                <select id="templateSelect" class="w-full bg-slate-800 border border-slate-700 p-2.5 rounded-xl text-sm focus:outline-none focus:border-pink-500">
+                    <option value="glass">۱. شیشه‌ای مدرن (Glassmorphism + موج میله‌ای)</option>
+                    <option value="vinyl">۲. صفحه گرامافون چرخان + موج خطی</option>
+                    <option value="neon">۳. حلقه نئونی و امواج دایره‌ای (Beat React)</option>
+                    <option value="cassette">۴. نوار کاست نوستالژی (قرقره چرخان)</option>
+                    <option value="minimal">۵. مینیمال سینمایی (نوار پیشرفت + موج ظریف)</option>
+                </select>
+            </div>
+
+            <!-- انتخاب رنگ تم -->
+            <div class="flex items-center justify-between bg-slate-800/50 p-3 rounded-xl border border-slate-800">
+                <span class="text-xs text-slate-300">رنگ اصلی امواج و قاب:</span>
+                <input type="color" id="themeColor" value="#ec4899" class="w-8 h-8 rounded cursor-pointer bg-transparent border-0">
+            </div>
+
+            <!-- دکمه‌های کنترل -->
+            <div class="grid grid-cols-2 gap-3 mt-2">
+                <button id="playBtn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 transition font-bold py-3 rounded-xl text-sm cursor-pointer">
+                    پخش / توقف ⏯
+                </button>
+                <button id="recordBtn" class="bg-gradient-to-l from-pink-600 to-violet-600 hover:opacity-90 transition font-bold py-3 rounded-xl text-sm shadow-lg shadow-pink-600/20 cursor-pointer">
+                    ضبط ویدیو 🎥
+                </button>
+            </div>
+            <p id="statusText" class="text-center text-xs text-amber-400 hidden">در حال ضبط ویدیو... پس از پایان آهنگ یا زدن توقف، فایل دانلود می‌شود.</p>
+        </div>
+
+        <!-- بخش پیش‌نمایش زنده (۷ ستون) -->
+        <div class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-950 p-4 rounded-2xl border border-slate-800">
+            <canvas id="mainCanvas" width="1080" height="1080" class="w-full max-w-[440px] aspect-square rounded-2xl shadow-2xl bg-black"></canvas>
+            <audio id="audioElement" crossorigin="anonymous"></audio>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
